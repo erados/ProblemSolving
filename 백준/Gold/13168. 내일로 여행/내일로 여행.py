@@ -1,5 +1,4 @@
 from sys import stdin, maxsize
-from pprint import pprint
 
 input = stdin.readline
 free = [
@@ -21,8 +20,8 @@ M = int(input())
 traval_order = input().split()
 
 K = int(input())
-costs = [[5000000] * N for _ in range(N)]
-costs_r = [[5000000] * N for _ in range(N)]
+costs = [[maxsize] * N for _ in range(N)]
+costs_r = [[maxsize] * N for _ in range(N)]
 for _ in range(K):
     type, start, end, cost = input().split()
     cost = int(cost)
@@ -40,31 +39,18 @@ for _ in range(K):
     costs_r[end][start] = costs_r[start][end]
 
 
-for city_k in range(N):
-    for city_i in range(N):
-        for city_j in range(N):
-            if costs[city_i][city_j] > costs[city_i][city_k] + costs[city_k][city_j]:
-                costs[city_i][city_j] = costs[city_i][city_k] + costs[city_k][city_j]
+for _c in [costs, costs_r]:
+    for city_k in range(N):
+        for city_i in range(N):
+            for city_j in range(N):
+                if _c[city_i][city_j] > _c[city_i][city_k] + _c[city_k][city_j]:
+                    _c[city_i][city_j] = _c[city_i][city_k] + _c[city_k][city_j]
 
-for city_k in range(N):
-    for city_i in range(N):
-        for city_j in range(N):
-            if (
-                costs_r[city_i][city_j]
-                > costs_r[city_i][city_k] + costs_r[city_k][city_j]
-            ):
-                costs_r[city_i][city_j] = (
-                    costs_r[city_i][city_k] + costs_r[city_k][city_j]
-                )
+result = [0, R]
+for idx in range(2):
+    _c = [costs, costs_r][idx]
+    for index, city in enumerate(traval_order):
+        if index < len(traval_order) - 1:
+            result[idx] += _c[cities[city]][cities[traval_order[index + 1]]]
 
-cost1 = 0
-for index, city in enumerate(traval_order):
-    if index < len(traval_order) - 1:
-        cost1 += costs[cities[city]][cities[traval_order[index + 1]]]
-
-cost2 = R
-for index, city in enumerate(traval_order):
-    if index < len(traval_order) - 1:
-        cost2 += costs_r[cities[city]][cities[traval_order[index + 1]]]
-
-print("Yes" if cost2 < cost1 else "No")
+print("Yes" if result[1] < result[0] else "No")
