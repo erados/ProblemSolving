@@ -1,16 +1,20 @@
 from sys import stdin
+from collections import defaultdict
 
 input = stdin.readline
 
 N, M = map(int, input().split())
-graph = [[] for _ in range(N + 1)]
+graph = defaultdict(dict)
 ans = 0
 
 for _ in range(M):
     A, B, C = map(int, input().split())
 
-    graph[A].append((B, C))
-    graph[B].append((A, C))
+    if B in graph[A]:
+        C = max(C, graph[A][B])
+
+    graph[A][B] = C
+    graph[B][A] = C
 
 S, E = map(int, input().split())
 
@@ -23,15 +27,16 @@ def dfs(start, weight):
     while q:
         curr = q.pop()
 
-        for next, weight_limit in graph[curr]:
-            if not visited[next] and weight <= weight_limit:
-                if next == E:
-                    return True
-                q.append(next)
-                visited[next] = True
+        for next in graph[curr]:
+            if not visited[next]:
+                if weight <= graph[curr][next]:
+                    if next == E:
+                        return True
+                    q.append(next)
+                    visited[next] = True
+
 
     return False
-
 
 left = 1
 right = 10**9
