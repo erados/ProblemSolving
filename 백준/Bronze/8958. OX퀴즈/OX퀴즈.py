@@ -2,18 +2,10 @@ from sys import stdin
 
 input = stdin.readline
 
-T = int(input())
-
-
-for _ in range(T):
-    ans = input().rstrip()
-
-    result = 0
-    score = 1
+for _ in range(int(input())):
+    ans = input().rstrip().split("X")
+    score = 0
     for c in ans:
-        if c == "O":
-            result += score
-            score += 1
-        else:
-            score = 1
-    print(result)
+        score += len(c) * (len(c) + 1) // 2
+
+    print(score)
