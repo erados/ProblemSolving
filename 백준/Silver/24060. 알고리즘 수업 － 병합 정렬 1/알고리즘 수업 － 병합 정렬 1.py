@@ -7,40 +7,29 @@ arr = list(map(int, input().split()))
 count = 0
 
 
-def mergesort(p, r):
-    if p < r:
-        q = (p + r) // 2
-        mergesort(p, q)
-        mergesort(q + 1, r)
-        merge(p, q, r)
+def merge_sort(target):
+    start = 0
+    end = len(target) - 1
+
+    if start < end:
+        mid = int((start + end) / 2)
+        target1 = merge_sort(target[start : mid + 1])
+        target2 = merge_sort(target[mid + 1 : end + 1])
+
+        target = merge(target1 + target2)
+    return target
 
 
-def merge(p, q, r):
-    global count
-    temp = []
-    i, j = p, q + 1
-    while i <= q and j <= r:
-        if arr[i] < arr[j]:
-            temp.append(arr[i])
-            i += 1
-        else:
-            temp.append(arr[j])
-            j += 1
-
-    while i <= q:
-        temp.append(arr[i])
-        i += 1
-    while j <= r:
-        temp.append(arr[j])
-        j += 1
-
-    for i in range(r - p + 1):
-        arr[p + i] = temp[i]
-        count += 1
-        if count == K:
-            print(temp[i])
-            exit()
+def merge(target):
+    global K
+    target.sort()
+    if len(target) < K:
+        K -= len(target)
+        return target
+    else:
+        print(target[K - 1])
+        exit()
 
 
-mergesort(0, N - 1)
+merge_sort(arr)
 print(-1)
