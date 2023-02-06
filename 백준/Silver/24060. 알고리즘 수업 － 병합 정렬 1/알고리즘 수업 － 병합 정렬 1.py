@@ -4,7 +4,7 @@ input = stdin.readline
 
 N, K = map(int, input().split())
 arr = list(map(int, input().split()))
-result = []
+count = 0
 
 
 def mergesort(p, r):
@@ -16,6 +16,7 @@ def mergesort(p, r):
 
 
 def merge(p, q, r):
+    global count
     temp = []
     i, j = p, q + 1
     while i <= q and j <= r:
@@ -35,9 +36,11 @@ def merge(p, q, r):
 
     for i in range(r - p + 1):
         arr[p + i] = temp[i]
-        result.append(temp[i])
+        count += 1
+        if count == K:
+            print(temp[i])
+            exit()
 
 
 mergesort(0, N - 1)
-
-print(-1 if len(result) < K else result[K - 1])
+print(-1)
