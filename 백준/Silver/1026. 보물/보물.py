@@ -1,6 +1,3 @@
-from sys import stdin
-
-input = stdin.readline
 input()
 sum = 0
 
