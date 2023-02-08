@@ -4,7 +4,7 @@ input = stdin.readline
 
 N = int(input())
 costs = []
-dp = [{} for _ in range(N)]
+dp = [[0] * (1 << N) for _ in range(N)]
 INF = maxsize
 
 for _ in range(N):
@@ -12,11 +12,11 @@ for _ in range(N):
 
 
 def solve(now, index):
-    if index in dp[now]:
-        return dp[now][index]
-
     if index == (1 << N) - 1:
         return costs[now][0] if costs[now][0] else INF
+
+    if dp[now][index]:
+        return dp[now][index]
 
     dp[now][index] = INF
 
