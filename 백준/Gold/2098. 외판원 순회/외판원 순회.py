@@ -27,8 +27,10 @@ def solve(now, index):
         if index & (1 << i):
             continue
 
-        temp = solve(i, index | (1 << i))
-        dp[now][index] = min(dp[now][index], temp + value)
+        temp = solve(i, index | (1 << i)) + value
+
+        if dp[now][index] > temp:
+            dp[now][index] = temp
 
     return dp[now][index]
 
