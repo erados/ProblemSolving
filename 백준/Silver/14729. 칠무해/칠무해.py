@@ -4,9 +4,13 @@ from heapq import heappop, heappush
 input = stdin.readline
 
 N = int(input())
-q = []
+q = [-100] * 7
 for _ in range(N):
-    heappush(q, float(input()))
+    a = float(input())
+    if -q[0] > a:
+        heappop(q)
+        heappush(q, -a)
 
-for _ in range(7):
-    print("{:.3f}".format(heappop(q)))
+q.sort(reverse=True)
+for n in q:
+    print("{:.3f}".format(-n))
