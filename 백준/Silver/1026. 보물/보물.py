@@ -2,15 +2,12 @@ from sys import stdin
 
 input = stdin.readline
 input()
+sum = 0
 
-print(
-    sum(
-        [
-            t[0] * t[1]
-            for t in zip(
-                sorted(list(map(int, input().split()))),
-                sorted(list(map(int, input().split())), reverse=True),
-            )
-        ]
-    )
-)
+for a, b in zip(
+    sorted(list(map(int, input().split()))),
+    sorted(list(map(int, input().split())), reverse=True),
+):
+    sum += a * b
+
+print(sum)
