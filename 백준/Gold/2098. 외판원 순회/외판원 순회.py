@@ -12,19 +12,19 @@ for _ in range(N):
 
 
 def solve(now, index):
-    if index == (1 << N) - 1:
-        return costs[now][0] if costs[now][0] else INF
-
     if index in dp[now]:
         return dp[now][index]
+
+    if index == (1 << N) - 1:
+        return costs[now][0] if costs[now][0] else INF
 
     dp[now][index] = INF
 
     for i, value in enumerate(costs[now]):
-        if index & (1 << i):
+        if value == 0:
             continue
 
-        if value == 0:
+        if index & (1 << i):
             continue
 
         temp = solve(i, index | (1 << i))
