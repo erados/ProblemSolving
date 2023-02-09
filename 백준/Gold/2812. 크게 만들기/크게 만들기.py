@@ -6,7 +6,7 @@ N, K = map(int, input().split())
 
 stack = []
 count = 0
-for n in input()[:-1]:
+for n in input().rstrip():
     while stack and stack[-1] < n and count < K:
         stack.pop()
         count += 1
