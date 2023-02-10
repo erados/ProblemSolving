@@ -4,22 +4,18 @@ input = stdin.readline
 ans = []
 
 M = int(input())
-dp = [[0] * (M + 1) for _ in range(19)]
-dp[0] = [0] + list(map(int, input().split()))
+dp = [[0, *map(int, input().split())]]
 
 
 # dp[i][x] 를 반환하는 함수
 def get(i, x):
-    if dp[i][x]:
+    if len(dp) > i:
         return dp[i][x]
 
-    index = 0
-    while i > index:
-        if not dp[index + 1][x]:
-            dp[index + 1][x] = get(index, get(index, x))
-        index += 1
+    while i >= len(dp):
+        dp.append([dp[-1][x] for x in dp[-1]])
 
-    return dp[index][x]
+    return dp[i][x]
 
 
 # f_n(x) 를 반환하는 함수
