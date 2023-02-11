@@ -32,5 +32,5 @@ def solve(now):
 
 solve(1)
 
-for i in range(2, N + 1):
-    print(parent[i])
+
+print("\n".join(map(str, parent[2:])))
