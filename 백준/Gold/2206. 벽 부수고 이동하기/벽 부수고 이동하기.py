@@ -7,7 +7,6 @@ N, M = map(int, input().split())
 graph = []
 score_map = [[[maxsize] * M for n in range(N)] for b in range(2)]
 score_map[0][0][0] = 1
-score_map[1][0][0] = 1
 moves = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
 for n in range(N):
