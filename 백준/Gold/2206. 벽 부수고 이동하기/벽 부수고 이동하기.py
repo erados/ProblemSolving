@@ -11,7 +11,7 @@ score_map[1][0][0] = 1
 moves = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
 for n in range(N):
-    graph.append(input().rstrip())
+    graph.append(input())
 
 
 def solve():
