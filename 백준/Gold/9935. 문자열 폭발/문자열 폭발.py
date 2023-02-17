@@ -9,6 +9,7 @@ stack = []
 
 for c in word:
     stack.append(c)
-    if c == bomb_last and stack[len(stack) - len(bomb) :] == bomb:
-        del stack[-len(bomb) :]
+    if c == bomb_last:
+        if stack[-len(bomb) :] == bomb:
+            del stack[-len(bomb) :]
 print("".join(stack) if stack else "FRULA")
