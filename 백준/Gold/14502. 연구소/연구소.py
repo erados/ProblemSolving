@@ -1,6 +1,5 @@
 from sys import stdin
 from itertools import combinations
-from collections import deque
 
 input = stdin.readline
 
@@ -26,12 +25,12 @@ for n in range(N):
     graph.append(row)
 
 
-def bfs():
-    q = deque(pos_twos)
+def dfs():
+    q = pos_twos[:]
     visited = [False] * (M * N)
     cnt = 0
     while q:
-        y, x = q.popleft()
+        y, x = q.pop()
         for dy, dx in moves:
             ny = y + dy
             nx = x + dx
@@ -56,7 +55,7 @@ for comb in combinations(pos_empty, 3):
     for y, x in comb:
         graph[y][x] = 1
 
-    temp = bfs()
+    temp = dfs()
     if min_cnt_twos > temp:
         min_cnt_twos = temp
 
