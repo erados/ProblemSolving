@@ -28,8 +28,8 @@ for n in range(N):
 
 def bfs():
     q = deque(pos_twos)
-    visited = set()
-
+    visited = [False] * (M * N)
+    cnt = 0
     while q:
         y, x = q.popleft()
         for dy, dx in moves:
@@ -40,15 +40,15 @@ def bfs():
                 0 <= ny < N
                 and 0 <= nx < M
                 and graph[ny][nx] == "0"
-                and (ny, nx) not in visited
+                and not visited[nx + ny * M]
             ):
-                visited.add((ny, nx))  # set 과 dict 과 list 성능차이 ?
-                
-                if len(visited) > min_cnt_twos:
+                visited[nx + ny * M] = True  # set 과 dict 과 list 성능차이 ?
+                cnt += 1
+                if cnt > min_cnt_twos:
                     return 100
-                
+
                 q.append((ny, nx))
-    return len(visited)
+    return cnt
 
 
 min_cnt_twos = 100
