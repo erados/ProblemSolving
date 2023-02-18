@@ -16,11 +16,11 @@ moves = [
 pos_empty = []
 pos_twos = []
 for n in range(N):
-    row = input().split()
+    row = [*map(int, input().split())]
     for m in range(M):
-        if row[m] == "0":
+        if row[m] == 0:
             pos_empty.append((n, m))
-        elif row[m] == "2":
+        elif row[m] == 2:
             pos_twos.append((n, m))
 
     graph.append(row)
@@ -39,7 +39,7 @@ def bfs():
             if (
                 0 <= ny < N
                 and 0 <= nx < M
-                and graph[ny][nx] == "0"
+                and graph[ny][nx] == 0
                 and not visited[nx + ny * M]
             ):
                 visited[nx + ny * M] = True  # set 과 dict 과 list 성능차이 ?
@@ -54,13 +54,13 @@ def bfs():
 min_cnt_twos = 100
 for comb in combinations(pos_empty, 3):
     for y, x in comb:
-        graph[y][x] = "1"
+        graph[y][x] = 1
 
     temp = bfs()
     if min_cnt_twos > temp:
         min_cnt_twos = temp
 
     for y, x in comb:
-        graph[y][x] = "0"
+        graph[y][x] = 0
 
 print(len(pos_empty) - 3 - min_cnt_twos)
