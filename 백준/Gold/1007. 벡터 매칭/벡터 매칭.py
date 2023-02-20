@@ -1,4 +1,4 @@
-from sys import stdin
+from sys import stdin, maxsize
 from itertools import combinations
 from math import sqrt
 
@@ -17,24 +17,23 @@ def solve():
         total_x += x
         total_y += y
 
-    answer = 10**7
+    answer = maxsize
 
     for comb in combinations(nums, N // 2):
         sum_selected_x = 0
         sum_selected_y = 0
-
         for x, y in comb:
             sum_selected_x += x
             sum_selected_y += y
 
-        temp = sqrt(
-            pow(total_x - 2 * sum_selected_x, 2) + pow(total_y - 2 * sum_selected_y, 2)
+        temp = pow(total_x - 2 * sum_selected_x, 2) + pow(
+            total_y - 2 * sum_selected_y, 2
         )
 
         if temp < answer:
             answer = temp
 
-    print(answer)
+    print(sqrt(answer))
     return
 
 
