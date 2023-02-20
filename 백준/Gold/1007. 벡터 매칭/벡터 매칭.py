@@ -18,8 +18,8 @@ def solve():
         total_y += y
 
     answer = maxsize
-
-    for comb in combinations(nums, N // 2):
+    combs = list(combinations(nums, N // 2))
+    for comb in combs[: len(combs) // 2]:
         sum_selected_x = 0
         sum_selected_y = 0
         for x, y in comb:
