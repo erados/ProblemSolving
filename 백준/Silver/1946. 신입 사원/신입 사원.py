@@ -1,5 +1,4 @@
-from sys import stdin
-from heapq import heappop, heappush
+from sys import stdin, maxsize
 
 input = stdin.readline
 T = int(input())
@@ -7,15 +6,16 @@ T = int(input())
 
 def solve():
     nums = []
-    answer = 1
-
-    for n in range(int(input())):
-        heappush(nums, tuple(map(int, input().split())))
+    answer = 0
+    N = int(input())
+    for n in range(N):
+        nums.append(tuple(map(int, input().split())))
+    nums.sort()
     
-    min_right_score = heappop(nums)[1]
+    min_right_score = maxsize
 
-    while nums:
-        new_right_score = heappop(nums)[1]
+    for n in range(N):
+        new_right_score = nums[n][1]
         if new_right_score < min_right_score:
             answer += 1
             min_right_score = new_right_score
