@@ -8,15 +8,13 @@ primes = [2]
 
 
 def get_prime():
+    mask = [False] * 4000038
+    mask[2::2] = [True] * len(mask[2::2])
     for num in range(3, 4_000_038):
-        sqrt_num = sqrt(num)
-        for prime in primes:
-            if sqrt_num < prime:
-                primes.append(num)
-                yield num
-                break
-            if num % prime == 0:
-                break
+        if not mask[num]:
+            mask[num::num] = [True] * len(mask[num::num])
+            primes.append(num)
+            yield num
 
 
 def solve():
