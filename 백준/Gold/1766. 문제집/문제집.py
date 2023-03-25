@@ -20,8 +20,9 @@ def solve():
         p, _ = graph[idx]
         if p == 0:
             heappush(heap, idx)
+
     answer = []
-    while heap:
+    for _ in range(N):
         idx = heappop(heap)
         answer.append(idx)
         for next_idx in graph[idx][1]:
